@@ -1,7 +1,7 @@
 # Paradise Running
 
-    Paradise Running is a single player game interactive demo that play around the hills with jumping and running.
-    Players will be able to tab the keyboard to jump and run, to escape the cliff and gain scores by collecting coins on the way.
+Paradise Running is a single player game interactive demo that play around the hills with jumping and running.
+Players will be able to tab the keyboard to jump and run, to escape the cliff and gain scores by collecting coins on the way.
 
 ## MVP
   1. Players will be able to tab the space and arrow on keyboard.
