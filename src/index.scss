@@ -13,12 +13,15 @@ body{
     border: 5px solid white;
 }
 
-#playerImage, #backgroundImage,#platformImage {
+
+
+#backgroundImage,#platformImage {
     display: none;
 }
 
-#playerImage {
-    width: 100px;
-    height: 100px;
-}
 
+#playerImage{
+    width: 50%;
+    height: 50%;
+    display: none;
+}
