@@ -1,25 +1,17 @@
 <!DOCTYPE html>
-<canvas></canvas>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="resetsheet" href="./src/styles/reset.scss" />
-    <link rel="stylesheet" href="./src/styles/shengzhi.css" />
-    <script src="./dist/main.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/main.css">
     <title>Paradise Running</title>
-  </head>
-
-  <body>
-    <div id="container">
-        <img src="./media/bg.png" id="background" />
-
-        <!-- <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump -->
-        <span id="debug"></span>
-    </div>
-  </body>
-
+</head>
+<body>
+    <canvas id = "canvas1"></canvas>
+    <img id = "playerImage" src = "player.png">
+    <img id = "backgroundImage" src = "background_single.png">
+    <img id = "platformImage" src = "platform.png">
+    <script src="./dist/main.js"></script>
+</body>
 </html>
