@@ -43,24 +43,17 @@ window.addEventListener('load', () => {
             this.x = 0;
             this.y = this.gameHeight - this.height; 
             this.image = document.getElementById("playerImage");
-            // this.image = new Image();
-            // this.image.src = "player_run.png";
-            this.frameX = 0;
-            this.frameY = 0;
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
         }
         draw(context) {
-            // context.fillStyle = "white";
-            // context.fillRect(this.x, this.y, this.width, this.height);
-            // context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height,  this.width, this.height, this.x, this.y, this.width, this.height); 
             context.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
         update(input) {
             
             if (input.keys.indexOf("ArrowUp") !== -1 && this.onGround()) {
-                this.vy = -32;
+                this.vy = -22;
             } else if (input.keys.indexOf("ArrowRight") !== -1) {
                 this.speed = 5;
             } else {
@@ -76,10 +69,10 @@ window.addEventListener('load', () => {
             this.y += this.vy;
             if (!this.onGround()) {
                 this.vy += this.weight;
-                this.frameY = -1;
+                // this.frameY = -1;
             } else {
                 this.vy = 0;
-                this.frameY = 0;
+                // this.frameY = 0;
             }
             if (this.y > this.gameHeight - this.height) {
                 this.y = this.gameHeight - this.height;
@@ -101,24 +94,53 @@ window.addEventListener('load', () => {
             this.x = 0;
             this.y = 0;
             this.image = document.getElementById("backgroundImage");
-            // this.image = new Image();
-            // this.image.src = "background.png";
         }
         draw(context) {
             context.drawImage(this.image, this.x, this.y, this.width, this.height);
             context.drawImage(this.image, this.x + this.width - 7, this.y, this.width, this.height);
         }   
         update() {
-            this.x -= 7;
+            this.x -= 10;
             if (this.x < -this.width) {
                 this.x = 0;
             }
         }
     }
 
+    class Platform {
+        constructor() {
+            this.x = 300;
+            this.y = 480;
+            this.width = 150;
+            this.height = 100;
+
+        }
+        draw(context) {
+            // context.fillStyle = "green";
+            // context.fillRect(this.x, this.y, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x, this.y, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 150, this.y - 100, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 300, this.y - 200, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 450, this.y - 150, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 600, this.y - 100, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 750, this.y - 200, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 900, this.y - 150, this.width, this.height);
+            context.drawImage(document.getElementById("platformImage"), this.x + 1050, this.y , this.width, this.height);
+        }
+        update() { 
+            // this.y = Math.floor(Math.random() * (600 - 100) + 100);
+            // this.x += this.width;
+            this.x = this.x - 7;
+            if (this.x < -this.width) {
+                this.x = 0;
+            };
+        }
+    }
+
     const input = new InputHandler();
     const player = new Player(canvas.width, canvas.height);
     const background = new Background(canvas.width, canvas.height);
+    const platform = new Platform();
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -126,6 +148,8 @@ window.addEventListener('load', () => {
         background.update();
         player.draw(ctx);   
         player.update(input);
+        platform.draw(ctx);
+        platform.update();
         requestAnimationFrame(animate);
     }
     animate();
