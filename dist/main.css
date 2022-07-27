@@ -68,7 +68,7 @@ body {
   display: none;
 }
 
-#playerImage {
+#playerImage_run, #playerImage_jump {
   width: 50%;
   height: 50%;
   display: none;
