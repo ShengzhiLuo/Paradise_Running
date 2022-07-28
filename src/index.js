@@ -13,8 +13,8 @@ window.addEventListener('load', () => {
     canvas.width = 1100;
     canvas.height = 600;
     let score = 0;
-    let platforms = [];
     let gameover = false;
+    let jump = false;
 
 
     class InputHandler {
@@ -51,8 +51,8 @@ window.addEventListener('load', () => {
         constructor(gamewidth, gameheight) {
             this.gameWidth = gamewidth;
             this.gameHeight = gameheight;
-            // this.run_image = document.getElementById("playerImage_run");
-            this.jump_image = document.getElementById("playerImage_jump");
+            this.run_image = document.getElementById("playerImage_run");
+            // this.jump_image = document.getElementById("playerImage_jump");
             this.width = 100;
             this.height = 100;
             this.x = 0;
@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
             this.frameX = 0;
             this.maxFrameX = 13;
             this.frameY = 0;
-            this.maxFrameY = 11;
+            this.maxFrameY = 10;
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
@@ -75,13 +75,14 @@ window.addEventListener('load', () => {
 
         }
         draw(context) {
-            context.drawImage(this.jump_image, this.frameX * this.width, this.frameY * this.height, this.width,this.height, this.x, this.y, this.width, this.height);
+            context.drawImage(this.run_image, this.frameX * this.width, this.frameY * this.height, this.width,this.height, this.x, this.y, this.width, this.height);
         }  
         update(input, deltaTime, platforms) {
             // debugger;
             platforms.forEach((platform) => {
                 if (this.onPlatform(platform)) {
                     this.vy = 0;
+                    jump = true;
                     // this.y += 1;
                 };
                 if (this.onGround()) {
@@ -92,8 +93,8 @@ window.addEventListener('load', () => {
             });
             
             // collision detection
-            if (input.keys.indexOf("ArrowUp") !== -1){   
-                this.vy = -22;
+            if (input.keys.indexOf("ArrowUp") !== -1 && jump){   
+                this.vy = -18;
                 // if (this.frameTimer > this.frameInterval) {                        
                 //     if (this.frameX >= this.maxFrameY) this.frameX = 0;
                 //         else this.frameX++;
@@ -120,13 +121,14 @@ window.addEventListener('load', () => {
                     // this.frameY = -1;
             } else {          
                 this.vy = 0;
+                jump = true;
                     // this.frameY = 0;
             }
             if (this.y > this.gameHeight - this.height) {            
                 this.y = this.gameHeight - this.height;         
             } 
             if (this.y < 0) {            
-                this.y = this.height;         
+                this.y = 0;         
             }
             
             
@@ -136,8 +138,21 @@ window.addEventListener('load', () => {
             return this.y + this.height >= this.gameHeight;
         }
         onPlatform(platform) {
-            return this.x + this.width >= platform.x && this.x <= platform.x + platform.width && this.y + this.height >= platform.y + platform.height - 60 && this.y <= platform.y + platform.height;
+            return this.x + this.width >= platform.x && this.x <= platform.x + platform.width && this.y + this.height >= platform.y + platform.height - 80 && this.y <= platform.y + platform.height;
         } 
+        Jumponce(platforms) {
+            platforms.forEach((platform) => {
+                if (this.onPlatform(platform)) {
+                    return true;
+                }
+                else if (this.onGround()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        }
     };
 
     class Background {
@@ -181,7 +196,7 @@ window.addEventListener('load', () => {
         } 
     }
     
-   
+    let platforms = [];
     function handlePlatforms(deltaTime) {
 
         if (platformTimer > platformInterval) {
@@ -211,6 +226,7 @@ window.addEventListener('load', () => {
             platform.update();
         });
     }
+
     function displayScore(context) {
         context.font = "30px Arial";
         context.fillStyle = "white";
@@ -246,13 +262,14 @@ window.addEventListener('load', () => {
 
     const title = document.getElementById("titleScreen");
     const instruction = document.getElementById("instructionScreen");
-    // console.log(title);
+    console.log(title);
     window.addEventListener("click", () => {
         title.style.display = "none";
         instruction.style.display = "none";
         // instructions.style.display = "block";
         animate(0);
     });
+    
     
 });
 

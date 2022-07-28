@@ -1,13 +1,14 @@
 # Paradise Running
 
-[Paradise Running](https://shengzhiluo.github.io/Paradise_Running/) is a single player platform game interactive demo that play around the hills with jumping and running.
-Players will be able to tab the keyboard to jump and run, to escape the cliff and gain scores by collecting coins on the way.
+[Paradise Running](https://shengzhiluo.github.io/Paradise_Running/) is a single player platform game interactive demo that play around the clouds with jumping and running.
+Integrates an object-oriented Javascript game structure with the smooth rendering of HTML5 canvas to create an unusual and curious experience.
+
 
 ## MVP
-  1. Players will be able to tab the space and arrow on keyboard.
-  2. Players will be able to select different characters and difficulties, wins the scores by collection and the distance they ran.
-  3. Game will be finished if player's character fall to the cliff.
-  4. There are gonna be random platforms that players can jump on to and random moving cubes between the down hills.
+  1. Players will be able to click the screen to start.
+  2. Players will be able to press up-arrow and right-arrow to jump and run
+  3. Game will be finished if player's character fail to jump on to the platforms.
+  4. There are gonna be random platforms that players can jump on to.
   
 ## Wirefame
 ![Wireframe](./media/wireframe.png "Title")
@@ -18,14 +19,20 @@ Players will be able to tab the keyboard to jump and run, to escape the cliff an
   * Canvas
 
 
-## Implementation timeline
-  * Day 1
-    * Basic functionalities, build the canvas.
-  * Day 2
-    * Build characters and platforms.
-  * Day 3
-    * Make Movements (Jumping and Running) and coins.
-  * Day 4
-    * Touching up, smoothing out animations.
+## Implementation
+
+### Basic Rendering
+
+A `animate` function renders the game, using a `requestAnimationFrame` loop to maintain a constant 60fps refresh rate.
+The `animate` delegates rendering tasks to the `handleplatforms` function, which handles all of the srcolling platforms in the game. The `handleplatforms` further delegates rendering of individual objects (`Player`, `Platform`s and `displayScore`) to the objects themselves, each of which have their own `#draw` and `#update` method.
+
+The game canvas sizes itself based on `window.canvas.Width` and `window.canvas.Height`. 
+
+### Displaying platforms and backgound
+Players see platforms as `Platforms`. To be realistic, platfroms must fade away to the left,  and represent the objects that produce them.
+
+### Movement
+Once moving, platforms move relative to the player's location, computed as a unit vector.
+
 
 
