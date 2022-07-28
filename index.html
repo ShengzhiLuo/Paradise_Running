@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./media/apple-touch-icon.png">
     <link rel="stylesheet" href="./dist/main.css">
     <title>Paradise Running</title>
 </head>
 <body>
+    <div id="titleScreen">
+       Paradise Running
+    </div>
+    <div id="instructionScreen">
+        <p> Click the screen to start the game
+        <br> <br> Press Up-Arrow &#11014 to jump <br> <br>Press Right-Arrow &#10145 to run <br> <br>Run to paradise!</p>
+    </div>
     <canvas id = "canvas1"></canvas>
-    <img id = "playerImage_run" src = "spritesheet.png">
-    <img id = "playerImage_jump" src = "player_jump.png">
-    <img id = "backgroundImage" src = "background.png">
-    <img id = "platformImage" src = "platform2.png">
+    <div id='links'>
+        <a href="https://github.com/ShengzhiLuo" target="_blank" rel="noopener"><img alt="github" src="./media/github_icon.svg"/></a>
+        <a href="https://www.linkedin.com/in/shengzhi-luo/" target="_blank" rel="noopener"><img id="li"  alt="linkeIn" id="li" src="./media/linkedin-icon.png"/></a>
+    </div>
+    <img alt="run" id = "playerImage_run" src = "./media/spritesheet.png">
+    <img alt="jump" id = "playerImage_jump" src = "./media/player_jump.png">
+    <img alt="background" id = "backgroundImage" src = "./media/background.png">
+    <img alt="platform" id = "platformImage" src = "./media/platform2.png">
     <script src="./dist/main.js"></script>
 </body>
 </html>

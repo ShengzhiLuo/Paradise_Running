@@ -53,7 +53,7 @@ table {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
 body {
-  background: black;
+  background: #696969;
 }
 
 #canvas1 {
@@ -72,4 +72,61 @@ body {
   width: 50%;
   height: 50%;
   display: none;
+}
+
+#links {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  text-align: center;
+  align-items: center;
+}
+
+#links img {
+  z-index: 10;
+  position: absolute;
+  right: 0;
+  height: 60px;
+  width: 60px;
+  filter: drop-shadow(0 0 10px #00f0ff);
+  cursor: pointer;
+  margin: 50px;
+}
+
+img#li {
+  z-index: 10;
+  margin-top: 140px;
+  width: 60px;
+  height: 60px;
+  padding-right: 6px;
+  margin-right: 40px;
+}
+
+#titleScreen {
+  font-family: "Gill Sans", sans-serif;
+  z-index: 10;
+  font-size: 10vh;
+  color: #D2B48C;
+  text-shadow: #FC0 1px 0 10px;
+  text-align: center;
+  margin-left: 50px;
+  margin-top: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#instructionScreen {
+  font-family: "Gill Sans", sans-serif;
+  z-index: 10;
+  font-size: 5vh;
+  color: #D2B48C;
+  text-shadow: #FC0 1px 0 10px;
+  text-align: center;
+  margin-left: 50px;
+  margin-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

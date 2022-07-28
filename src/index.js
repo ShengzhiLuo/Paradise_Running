@@ -1,8 +1,21 @@
+// import InputHandler from './scripts/input.js';
+// import Player from './scripts/player.js';
+// import Platform from './scripts/platform.js';
+// import handlePlatforms  from './scripts/handleplatform.js';
+// import Background from './scripts/background.js';
+// import displayScore from './scripts/display.js';
+
+
+
 window.addEventListener('load', () => {
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 1100;
     canvas.height = 600;
+    let score = 0;
+    let platforms = [];
+    let gameover = false;
+
 
     class InputHandler {
         constructor() {
@@ -62,62 +75,64 @@ window.addEventListener('load', () => {
 
         }
         draw(context) {
-            context.strokeStyle = "white";
-            context.strokeRect(this.x, this.y, this.width, this.height);
-            // context.beginPath();
-            // context.arc(this.x + this.width/2, this.y + this.height/2, this.width / 2, 0, 2 * Math.PI);
-            // context.stroke();
             context.drawImage(this.run_image, this.frameX * this.width, this.frameY * this.height, this.width,this.height, this.x, this.y, this.width, this.height);
-            // context.drawImage(this.image, this.x, this.y, this.width, this.height);
         }  
         update(input, deltaTime, platforms) {
-            // collision detection
-
-            if (input.keys.indexOf("ArrowUp") !== -1 && this.onGround()) {
-                this.vy = -22;
-                // if (this.frameTimer > this.frameInterval) {
-                //     if (this.frameX >= this.maxFrameY) this.frameX = 0;
-                //     else this.frameX++;
-                //     this.frameTimer = 0;
-                // } else {
-                //     this.frameTimer += deltaTime;
-                // }
-            } else if (input.keys.indexOf("ArrowRight") !== -1) {
-                this.speed = 5;
-                if (this.frameTimer > this.frameInterval) {
-                    if (this.frameX >= this.maxFrameX) this.frameX = 0;
-                    else this.frameX++;
-                    this.frameTimer = 0;
-                } else {
-                    this.frameTimer += deltaTime;
+            // debugger;
+            platforms.forEach((platform) => {
+                if (this.onPlatform(platform)) {
+                    this.vy = 0;
+                    // this.y += 1;
+                };
+                if (this.onGround()) {
+                    if (this.x + this.width >= platform.x) {
+                        gameover = true;
+                    }
                 }
-            } else {
-                this.speed = 0;
-            }
-            this.x += this.speed;
-            if (this.x < 0) {
-                this.x = 0;
-            } else if (this.x > this.gameWidth - this.width) {
-                this.x = this.gameWidth - this.width;
-            }
+            });
             
+            // collision detection
+            if (input.keys.indexOf("ArrowUp") !== -1){   
+                this.vy = -22;               
+            } else if (input.keys.indexOf("ArrowRight") !== -1) {               
+                this.speed = 5;               
+                if (this.frameTimer > this.frameInterval) {                        
+                    if (this.frameX >= this.maxFrameX) this.frameX = 0;                           
+                    else this.frameX++;                    
+                    this.frameTimer = 0;                   
+                } else {                   
+                    this.frameTimer += deltaTime;                    
+                }               
+            } else {               
+                this.speed = 0;               
+            }           
+            this.x += this.speed;          
+            if (this.x < 0) {                   
+                this.x = 0;            
+            } else if (this.x > this.gameWidth - this.width) {            
+                this.x = this.gameWidth - this.width;           
+            }                
             this.y += this.vy;
-            if (!this.onGround()) {
-                this.vy += this.weight;
-                // this.frameY = -1;
-            } else {
+            if (!this.onGround()) {                 
+                this.vy += this.weight;           
+                    // this.frameY = -1;
+            } else {          
                 this.vy = 0;
-                // this.frameY = 0;
+                    // this.frameY = 0;
             }
-            if (this.y > this.gameHeight - this.height) {
-                this.y = this.gameHeight - this.height;
-            }
+            if (this.y > this.gameHeight - this.height) {            
+                this.y = this.gameHeight - this.height;         
+            } 
+            
+            
         }
 
         onGround() {
             return this.y + this.height >= this.gameHeight;
         }
-         
+        onPlatform(platform) {
+            return this.x + this.width >= platform.x && this.x <= platform.x + platform.width && this.y + this.height >= platform.y + platform.height - 60 && this.y <= platform.y + platform.height;
+        } 
     };
 
     class Background {
@@ -142,7 +157,6 @@ window.addEventListener('load', () => {
         }
     }
 
-    let score = 0;
 
     class Platform {
         constructor(x,y) {
@@ -152,11 +166,6 @@ window.addEventListener('load', () => {
             this.height = 150; 
         }
         draw(context) {
-            context.strokeStyle = "white";
-            context.strokeRect(this.x, this.y + 40, this.width, this.height - 70);
-            // context.beginPath();
-            // context.arc(this.x + this.width/2, this.y + this.height/2, this.width / 2, 0, 2 * Math.PI);
-            // context.stroke();
             context.drawImage(document.getElementById("platformImage"), this.x, this.y, this.width, this.height);
         }
         update() { 
@@ -167,8 +176,9 @@ window.addEventListener('load', () => {
         } 
     }
     
-    let platforms = [];
+   
     function handlePlatforms(deltaTime) {
+
         if (platformTimer > platformInterval) {
             let x = 1100;
             let y = 550;
@@ -195,19 +205,22 @@ window.addEventListener('load', () => {
             platform.draw(ctx);
             platform.update();
         });
-
     }
     function displayScore(context) {
         context.font = "30px Arial";
         context.fillStyle = "white";
         context.fillText("Score: " + score, 20, 50);
+        if (gameover) {
+            context.font = "100px Arial";
+            context.textAlign = "center";
+            context.fillStyle = "red";
+            context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+        }
     } 
 
     const input = new InputHandler();
     const player = new Player(canvas.width, canvas.height);
     const background = new Background(canvas.width, canvas.height);
-    // console.log(platforms);
-    // platforms.forEach(platform => { console.log(platform.x); });
     let lastTime = 0;
     let platformTimer = 0;
     let platformInterval = 3000;
@@ -223,11 +236,22 @@ window.addEventListener('load', () => {
         player.update(input, deltaTime, platforms);
         handlePlatforms(deltaTime);
         displayScore(ctx);
-        requestAnimationFrame(animate);
+        if (!gameover) requestAnimationFrame(animate);
     }
-    animate(0);
+
+    const title = document.getElementById("titleScreen");
+    const instruction = document.getElementById("instructionScreen");
+    // console.log(title);
+    window.addEventListener("click", () => {
+        title.style.display = "none";
+        instruction.style.display = "none";
+        // instructions.style.display = "block";
+        animate(0);
+    });
     
 });
+
+
 
 
 
