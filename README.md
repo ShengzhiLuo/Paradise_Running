@@ -1,6 +1,6 @@
 # Paradise Running
 
-![Paradise Running](https://shengzhiluo.github.io/Paradise_Running/) is a single player platform game interactive demo that play around the hills with jumping and running.
+[Paradise Running](https://shengzhiluo.github.io/Paradise_Running/) is a single player platform game interactive demo that play around the hills with jumping and running.
 Players will be able to tab the keyboard to jump and run, to escape the cliff and gain scores by collecting coins on the way.
 
 ## MVP
