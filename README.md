@@ -10,7 +10,7 @@ Players will be able to tab the keyboard to jump and run, to escape the cliff an
   4. There are gonna be random platforms that players can jump on to and random moving cubes between the down hills.
   
 ## Wirefame
-![Wireframe](wireframe.png "Title")
+![Wireframe](./media/wireframe.png "Title")
 
 ## Technologies 
   * Javascript
